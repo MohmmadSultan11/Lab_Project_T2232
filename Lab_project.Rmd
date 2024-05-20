@@ -28,9 +28,10 @@ library(ggrepel)
 
 `1. (2 points)
 ```{r}
+nrow(seattlepets)
 
 ```
-Write your narrative here
+Task 1: How many pets are included in this dataset?
 
 
 
@@ -38,40 +39,62 @@ Write your narrative here
 `2. (2 points)
 
 ```{r}
+ncol(seattlepets)
 
 ```
-Write your narrative below
+Task 2: How many variables do we have for each pet?
 
 
 
 `3. (2 points)
 ```{r}
+seattlepets %>%
+  count(species)
 
 ```
-Write your narrative here
+Task 3: What are the pet species in Seattle? How many pets are there for each species?
 
 
 `4. (2 points)
 ```{r}
+seattlepets %>%
+  count(animal_name) %>%
+  arrange(desc(n)) %>%
+  head(10)
 
 ```
-Write your narrative here
+Task 4: What are the ten most common pet names?
 
 
 `5. (2 points)
 ```{r}
+library(dplyr)
+
+# Retrieve and display all the 6 records for the species Pig sorted by pet names
+pigs <- seattlepets %>%
+  filter(species == "Pig") %>%
+  arrange(animal_name)
+
+# Display the result
+print(pigs)
 
 ```
-Write your narrative here
 
 
 
 
 `6. (2 points)
 ```{r}
+# Retrieve and display ONLY the pet name (animal_name) and primary_breed of the species Goat sorted by pet names
+goats <- seattlepets %>%
+  filter(species == "Goat") %>%
+  select(animal_name, primary_breed) %>%
+  arrange(animal_name)
+
+# Display the result
+print(goats)
 
 ```
-Write your narrative here
 
 
 
@@ -79,17 +102,30 @@ Write your narrative here
 
 `7. (2 points)
 ```{r}
+# Concatenate the two columns animal_name and species into a single column named pet
+# then display license_number and pet sorted by pet
+pets <- seattlepets %>%
+  mutate(pet = paste(animal_name, species, sep = "; ")) %>%
+  select(license_number, pet) %>%
+  arrange(pet)
+
+# Display the result
+print(pets)
 
 ```
-Write your narrative here
 
 
 
 `8. (2 points)
 ```{r}
+library(ggplot2)
+
+# Plot the counts of the species as bars
+ggplot(seattlepets, aes(x = species)) +
+  geom_bar() +
+  labs(title = "Counts of Pet Species in Seattle", x = "Species", y = "Count")
 
 ```
-Write your narrative here
 
 
 
@@ -102,12 +138,19 @@ filter(animal_name %in% c( "Lucy"  , "Charlie" , "Luna" , "Bella" , "Max"    ,
 top_10_names
 ```
 `a.	What does the above code chunk do?
-
+Filter the Dataset: It filters the seattlepets dataset to include only rows where the animal_name column matches one of the specified names in the list: "Lucy", "Charlie", "Luna", "Bella", "Max", "Daisy", "Molly", "Jack", "Lily", and "Stella".
+Assign the Result to top_10_names: The filtered dataset is then stored in a new variable called top_10_names.
+Display the Result: It displays the contents of top_10_names to show the filtered data
 
 
 `b. Plot the counts of the pet names (animal_name) in top_10_names
 ```{r}
-
+ggplot(top_10_names, aes(x = animal_name, fill = species)) +
+  geom_bar() +
+  labs(title = "Top 10 Pet Names in Seattle Segmented by Species", 
+       x = "Pet Name", 
+       y = "Count") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
 
@@ -165,11 +208,15 @@ ggplot(comb_name_props, aes(x = cat_prop, y = dog_prop)) +
 
 `What names are more common for cats than dogs? The ones above the line or the ones below the line?
 
-`Answer here..................
+`Answer here.The names that are more common for cats than dogs are the ones above the line. This is because the y-axis represents the proportion of dogs and the x-axis represents the proportion of cats. Points above the line 
+y=x indicate that the proportion for cats is higher than for dogs.
 
 
 
 `Is the relationship between the two variables (proportion of cats with a given name and proportion of dogs with a given name) positive or negative? What does this mean in context of the data?
 
-`Answer here .............
+`Answer here 
+The relationship between the two variables (proportion of cats with a given name and proportion of dogs with a given name) is positive. This means that, generally, if a name is popular among cats, it also tends to be popular among dogs. The points are scattered around the line 
+
+y=x, indicating that the same names are often used for both cats and dogs, with varying degrees of popularity.
 
