@@ -1,10 +1,10 @@
 DSC 200 Lab Project -Term 2232
 ================
-2024-05-08
+2024-05-20
 
-**Student Name:<insert your name here>**
+**Student Name:Mohmmad Sultan**
 
-**Student ID:<insert ID here>**
+**Student ID: 2210002586**
 
 **Deadline:** 23:59 on Sunday, 19 May 2024
 
@@ -54,9 +54,6 @@ Write your narrative here
 
 \`9. (2 points)
 
-The code below selects the records of the ten most common pet names and
-assigns them to the variable top_10_names. (Refer to Task4 above).
-
 ``` r
 top_10_names <- seattlepets %>% 
 filter(animal_name %in% c( "Lucy"  , "Charlie" , "Luna" , "Bella" , "Max"    , 
@@ -80,7 +77,9 @@ top_10_names
     ## # ℹ 2,964 more rows
     ## # ℹ 2 more variables: secondary_breed <chr>, zip_code <chr>
 
-\`Plot the counts of the pet names (animal_name) in top_10_names
+\`a. What does the above code chunk do?
+
+\`b. Plot the counts of the pet names (animal_name) in top_10_names
 
 \`10. (2 points)
 
